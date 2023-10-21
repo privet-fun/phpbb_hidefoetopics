@@ -1,0 +1,12 @@
+services:
+    privet.hidefoetopics.listener:
+        class: privet\hidefoetopics\event\listener
+        arguments:
+            - '@request'
+            - '@template'
+            - '@user'
+            - '@dbal.conn'
+            - '@config'	
+            - '@language'
+        tags:
+            - { name: event.listener }

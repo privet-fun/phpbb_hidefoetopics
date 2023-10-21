@@ -1,0 +1,10 @@
+<dl>
+	<dt><label for="privet_hidefoetopics1">{{ lang('L_PRIVET_HIDEFOETOPICS') }}{{ lang('COLON') }}</label></dt>
+	<dd>
+		<label for="privet_hidefoetopics1"><input type="radio" name="privet_hidefoetopics" id="privet_hidefoetopics1"
+				value="1" {% if S_UCP_PRIVET_HIDEFOETOPICS %} checked="checked" {% endif %} /> {{ lang('YES') }}</label>
+		<label for="privet_hidefoetopics0"><input type="radio" name="privet_hidefoetopics" id="privet_hidefoetopics0"
+				value="0" {% if not S_UCP_PRIVET_HIDEFOETOPICS %} checked="checked" {% endif %} /> {{ lang('NO')
+			}}</label>
+	</dd>
+</dl>
