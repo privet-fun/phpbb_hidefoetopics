@@ -67,6 +67,7 @@ class listener implements EventSubscriberInterface
 			'core.ucp_prefs_personal_data'			=>	'ucp_prefs_personal_data',
 			'core.ucp_prefs_personal_update_data'	=>	'ucp_prefs_personal_update_data',
 			'core.viewforum_get_topic_ids_data'	 	=>	'viewforum_get_topic_ids_data',
+			'core.get_unread_topics_modify_sql'		=>	'get_unread_topics_modify_sql',
 		);
 	}
 
@@ -129,4 +130,21 @@ class listener implements EventSubscriberInterface
 
 		// echo var_dump($event['sql_ary']);
 	}
+
+	public function get_unread_topics_modify_sql($event)
+	{
+		// echo var_dump($event['sql_array']);
+
+		if ($this->user->data['user_privet_hidefoetopics']) {
+			$sql_ary = $event['sql_array'];
+			$sql_ary['LEFT_JOIN'][] = array(
+				'FROM'	=> array(ZEBRA_TABLE => 'z'),
+				'ON'	=> 'z.user_id = ' . $this->user->data['user_id'] . ' AND z.zebra_id = t.topic_poster'
+			);
+			$sql_ary['WHERE'] = '(z.foe IS NULL OR z.foe = 0) AND ' . $sql_ary['WHERE'];
+			$event['sql_array'] = $sql_ary;
+		}
+
+		// echo var_dump($event['sql_extra']);
+	}	
 }
